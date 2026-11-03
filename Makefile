@@ -144,7 +144,7 @@ deploy-containerlab: ## Deploy Clabernetes only
 	@echo "   UI: https://$(HOST_UI)"
 	@oc get ns $(NS_MGR) >/dev/null 2>&1 || oc new-project $(NS_MGR) >/dev/null
 	@helm upgrade --install $(RELEASE) $(CHART) \
-		--namespace $(NS_MGR) --create-namespace $(VERSION:+--version $(VERSION)) \
+		--namespace $(NS_MGR) --create-namespace $(if $(VERSION),--version $(VERSION)) \
 		--set manager.replicaCount=1 \
 		--set manager.managerLogLevel=info \
 		--set manager.controllerLogLevel=info
